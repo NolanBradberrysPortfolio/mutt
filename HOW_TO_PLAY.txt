@@ -1,0 +1,42 @@
+MUTT - How to Play
+==================
+
+The game needs a local web server because browsers block ES modules from file:// URLs.
+
+OPTION 1 - Install Node.js (Recommended)
+-----------------------------------------
+1. Download and install Node.js from https://nodejs.org
+2. Open a terminal in this folder
+3. Run: npx serve .
+4. Open http://localhost:3000 in your browser
+
+OPTION 2 - Install Python
+--------------------------
+1. Download and install Python from https://python.org
+2. Double-click start.bat
+3. Open http://localhost:8000 in your browser
+
+OPTION 3 - VS Code Live Server
+-------------------------------
+1. Install VS Code
+2. Install the "Live Server" extension
+3. Open this folder in VS Code
+4. Right-click index.html -> "Open with Live Server"
+
+OPTION 4 - Chrome with flags (quick hack)
+------------------------------------------
+Close all Chrome windows, then run:
+chrome.exe --allow-file-access-from-files
+
+Then open index.html directly. (Not recommended for regular browsing)
+
+CONTROLS
+========
+Player 1: WASD + SPACE (action) + E (alt action)
+Player 2: Arrow Keys + . (action) + / (alt action)
+Player 3: IJKL + U (action) + O (alt action)
+Player 4: Numpad 8456 + 7 (action) + 9 (alt action)
+Player 5: TFGH + R (action) + Y (alt action)
+Player 6: Numpad 0123 + Numpad + (action) + Numpad - (alt action)
+
+Gamepads also supported! (D-pad/stick + A/B buttons)

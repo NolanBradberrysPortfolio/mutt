@@ -1,0 +1,44 @@
+{
+    "dogs": [
+        {
+            "id": 0,
+            "name": "Daisy",
+            "class": "Pooper",
+            "description": "The one-toothed mutt",
+            "color": "#8B6C42",
+            "sprite": "dog_0"
+        },
+        {
+            "id": 1,
+            "name": "Cocoa",
+            "class": "Pyromancer",
+            "description": "A chocolate lab mix",
+            "color": "#8B4513",
+            "sprite": "dog_1"
+        },
+        {
+            "id": 2,
+            "name": "Snowball",
+            "class": "Rogue",
+            "description": "Fluffy & fierce",
+            "color": "#ffffff",
+            "sprite": "dog_2"
+        },
+        {
+            "id": 3,
+            "name": "Shadow",
+            "class": "Necromancer",
+            "description": "Silent but loyal",
+            "color": "#333333",
+            "sprite": "dog_3"
+        },
+        {
+            "id": 4,
+            "name": "Rusty",
+            "class": "Paladin",
+            "description": "Scrappy terrier",
+            "color": "#D2691E",
+            "sprite": "dog_4"
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "name": "mutt",
+    "version": "0.1.0",
+    "description": "MUTT - Variety Broken Attention Span Arcade. A love letter to shelter dogs.",
+    "private": true,
+    "scripts": {
+        "start": "npx serve .",
+        "dev": "npx serve . -l 3000"
+    },
+    "keywords": ["game", "phaser", "arcade"],
+    "license": "MIT"
+}

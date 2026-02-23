@@ -1,0 +1,242 @@
+{
+    "opening": {
+        "scenes": [
+            {
+                "type": "narration",
+                "text": "A small shelter, somewhere in America...",
+                "duration": 2500
+            },
+            {
+                "type": "dialog",
+                "speaker": "Daisy",
+                "portrait": "daisy_portrait",
+                "text": "Mark, where am I? I'm scared in here... cold."
+            },
+            {
+                "type": "narration",
+                "text": "Mark never came back.",
+                "duration": 2000
+            },
+            {
+                "type": "dialog",
+                "speaker": "Daisy",
+                "portrait": "daisy_portrait",
+                "text": "Why did he leave me here? What did I do wrong?"
+            },
+            {
+                "type": "narration",
+                "text": "A few days later, a man walks in...",
+                "duration": 2500
+            },
+            {
+                "type": "dialog",
+                "speaker": "Man",
+                "portrait": "shelterman_portrait",
+                "text": "Hmm... what about this one? No, no... I want a purebred. What about that golden retriever over there?"
+            },
+            {
+                "type": "dialog",
+                "speaker": "Daisy",
+                "portrait": "daisy_portrait",
+                "text": "Everyone wants the purebreds... they don't want what I am. I don't even know what I am. Maybe a Pomeranian? Maybe a terrier?"
+            },
+            {
+                "type": "narration",
+                "text": "A few months pass...",
+                "duration": 3000
+            },
+            {
+                "type": "narration",
+                "text": "Daisy wakes up. The shelter is nearly empty. She's the last one.",
+                "duration": 3000
+            },
+            {
+                "type": "dialog",
+                "speaker": "Daisy",
+                "portrait": "daisy_portrait",
+                "text": "Everyone else got picked... everyone but me."
+            },
+            {
+                "type": "narration",
+                "text": "The door opens. A brunette girl walks in.",
+                "duration": 2500
+            },
+            {
+                "type": "dialog",
+                "speaker": "Shelter Man",
+                "portrait": "shelterman_portrait",
+                "text": "This is the last one we have, ma'am. This mutt."
+            },
+            {
+                "type": "dialog",
+                "speaker": "Girl",
+                "portrait": "mommy_portrait",
+                "text": "What breed is she?"
+            },
+            {
+                "type": "dialog",
+                "speaker": "Shelter Man",
+                "portrait": "shelterman_portrait",
+                "text": "Honestly? We have no idea. Some kind of mix."
+            },
+            {
+                "type": "dialog",
+                "speaker": "Girl",
+                "portrait": "mommy_portrait",
+                "text": "Any health issues?"
+            },
+            {
+                "type": "dialog",
+                "speaker": "Shelter Man",
+                "portrait": "shelterman_portrait",
+                "text": "Unknown. She's been here a while though."
+            },
+            {
+                "type": "dialog",
+                "speaker": "Girl",
+                "portrait": "mommy_portrait",
+                "text": "Does she... have teeth?"
+            },
+            {
+                "type": "dialog",
+                "speaker": "Shelter Man",
+                "portrait": "shelterman_portrait",
+                "text": "I think... one?"
+            },
+            {
+                "type": "dialog",
+                "speaker": "Girl",
+                "portrait": "mommy_portrait",
+                "text": "OMG SHE'S PERFECT! I love her! I'll keep her forever!"
+            },
+            {
+                "type": "dialog",
+                "speaker": "Daisy",
+                "portrait": "daisy_portrait",
+                "text": "So... you're my new mommy?"
+            },
+            {
+                "type": "narration",
+                "text": "~ That night, Daisy dreams... ~",
+                "duration": 2500
+            },
+            {
+                "type": "narration",
+                "text": "Walking in the park with mommy...",
+                "duration": 2000
+            },
+            {
+                "type": "narration",
+                "text": "Sleeping in a warm bed...",
+                "duration": 2000
+            },
+            {
+                "type": "narration",
+                "text": "Getting her very first Greenie...",
+                "duration": 2000
+            },
+            {
+                "type": "narration",
+                "text": "Daisy wakes up.",
+                "duration": 1500
+            },
+            {
+                "type": "dialog",
+                "speaker": "Daisy",
+                "portrait": "daisy_portrait",
+                "text": "Wait... where's mommy? She's... GONE?!"
+            },
+            {
+                "type": "dialog",
+                "speaker": "Daisy",
+                "portrait": "daisy_portrait",
+                "text": "My mommy saved me from the shelter... and now I need to save her!"
+            }
+        ]
+    },
+    "post_galaga": {
+        "scenes": [
+            {
+                "type": "dialog",
+                "speaker": "Daisy",
+                "portrait": "daisy_portrait",
+                "text": "Those Amazon guys were tough! But nothing will stop me from finding mommy!"
+            },
+            {
+                "type": "narration",
+                "text": "Daisy ventures into the neighborhood...",
+                "duration": 2500
+            }
+        ]
+    },
+    "post_platformer": {
+        "scenes": [
+            {
+                "type": "dialog",
+                "speaker": "Daisy",
+                "portrait": "daisy_portrait",
+                "text": "So many wiener dogs! But I made it through. Mommy has to be close..."
+            },
+            {
+                "type": "narration",
+                "text": "A green cheek parrot lands on Daisy's head.",
+                "duration": 2000
+            },
+            {
+                "type": "dialog",
+                "speaker": "Parrot",
+                "portrait": null,
+                "text": "*SQUAWK* I know where your mommy is! Follow me! We have to fly through the hoops!"
+            },
+            {
+                "type": "dialog",
+                "speaker": "Daisy",
+                "portrait": "daisy_portrait",
+                "text": "But... I'm a dog. I can't fly!"
+            },
+            {
+                "type": "dialog",
+                "speaker": "Parrot",
+                "portrait": null,
+                "text": "Hold onto my feet! Let's GO!"
+            }
+        ]
+    },
+    "ending": {
+        "scenes": [
+            {
+                "type": "narration",
+                "text": "Daisy finds her mommy!",
+                "duration": 2500
+            },
+            {
+                "type": "dialog",
+                "speaker": "Daisy",
+                "portrait": "daisy_portrait",
+                "text": "MOMMY!! I found you! I was so scared!"
+            },
+            {
+                "type": "dialog",
+                "speaker": "Mommy",
+                "portrait": "mommy_portrait",
+                "text": "Daisy! My brave little mutt! I knew you'd find me!"
+            },
+            {
+                "type": "dialog",
+                "speaker": "Daisy",
+                "portrait": "daisy_portrait",
+                "text": "I love you, mommy. Forever and ever."
+            },
+            {
+                "type": "narration",
+                "text": "Dedicated to the unwanted dogs of this world\nand those that have come to love them.",
+                "duration": 5000
+            },
+            {
+                "type": "narration",
+                "text": "T H A N K   Y O U   F O R   P L A Y I N G",
+                "duration": 4000
+            }
+        ]
+    }
+}
