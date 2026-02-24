@@ -1,4 +1,4 @@
-// InputManager - Routes keyboard/gamepad input to up to 6 player slots
+// InputManager - Routes keyboard/gamepad/touch input to up to 6 player slots
 
 export class InputManager {
     constructor(scene) {
@@ -36,6 +36,12 @@ export class InputManager {
         ];
 
         this.keyObjects = [];
+
+        // Touch controls state (Player 1 only)
+        this.isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        this.touchState = { x: 0, y: 0, action1: false, action2: false };
+        this._prevTouch = { action1: false, action2: false };
+        this.touchButtons = [];
     }
 
     init(playerCount) {
@@ -73,7 +79,91 @@ export class InputManager {
             }
         }
 
+        // Create touch controls on mobile
+        if (this.isMobile) {
+            this._createTouchControls();
+        }
+
         return this.players;
+    }
+
+    _createTouchControls() {
+        const cam = this.scene.cameras.main;
+        const w = cam.width;
+        const h = cam.height;
+        const btnSize = 44;
+        const gap = 6;
+
+        // D-pad positioning (bottom-left)
+        const dpadCenterX = w * 0.13;
+        const dpadCenterY = h * 0.78;
+
+        // Action button positioning (bottom-right)
+        const actionCenterX = w * 0.87;
+        const actionCenterY = h * 0.78;
+
+        const dpadDefs = [
+            { key: 'up',    label: '\u25B2', x: dpadCenterX, y: dpadCenterY - btnSize - gap },
+            { key: 'down',  label: '\u25BC', x: dpadCenterX, y: dpadCenterY + btnSize + gap },
+            { key: 'left',  label: '\u25C0', x: dpadCenterX - btnSize - gap, y: dpadCenterY },
+            { key: 'right', label: '\u25B6', x: dpadCenterX + btnSize + gap, y: dpadCenterY },
+        ];
+
+        const actionDefs = [
+            { key: 'action1', label: 'A', x: actionCenterX, y: actionCenterY + btnSize / 2 + gap / 2 },
+            { key: 'action2', label: 'B', x: actionCenterX, y: actionCenterY - btnSize / 2 - gap / 2 },
+        ];
+
+        const allDefs = [...dpadDefs, ...actionDefs];
+
+        for (const def of allDefs) {
+            // Circle background
+            const circle = this.scene.add.circle(def.x, def.y, btnSize / 2, 0x222222, 0.35)
+                .setScrollFactor(0)
+                .setDepth(9999)
+                .setStrokeStyle(2, 0xffffff, 0.5);
+
+            // Label text
+            const label = this.scene.add.text(def.x, def.y, def.label, {
+                fontSize: '18px',
+                fontFamily: 'monospace',
+                color: '#ffffff',
+                align: 'center'
+            })
+                .setOrigin(0.5)
+                .setScrollFactor(0)
+                .setDepth(10000)
+                .setAlpha(0.6);
+
+            // Make interactive
+            circle.setInteractive({ useHandCursor: false });
+
+            if (def.key === 'up' || def.key === 'down' || def.key === 'left' || def.key === 'right') {
+                const axis = (def.key === 'left' || def.key === 'right') ? 'x' : 'y';
+                const val = (def.key === 'right' || def.key === 'down') ? 1 : -1;
+                circle.on('pointerdown', () => { this.touchState[axis] = val; });
+                circle.on('pointerup', () => { if (this.touchState[axis] === val) this.touchState[axis] = 0; });
+                circle.on('pointerout', () => { if (this.touchState[axis] === val) this.touchState[axis] = 0; });
+            } else {
+                circle.on('pointerdown', () => { this.touchState[def.key] = true; });
+                circle.on('pointerup', () => { this.touchState[def.key] = false; });
+                circle.on('pointerout', () => { this.touchState[def.key] = false; });
+            }
+
+            this.touchButtons.push(circle, label);
+        }
+
+        // Enable multi-touch
+        this.scene.input.addPointer(3); // support up to 4 simultaneous touches
+    }
+
+    _destroyTouchControls() {
+        for (const obj of this.touchButtons) {
+            obj.destroy();
+        }
+        this.touchButtons = [];
+        this.touchState = { x: 0, y: 0, action1: false, action2: false };
+        this._prevTouch = { action1: false, action2: false };
     }
 
     onGamepadConnected(pad) {
@@ -150,6 +240,22 @@ export class InputManager {
             }
         }
 
+        // Touch input (Player 1 only, merged with OR logic)
+        if (playerIndex === 0 && this.isMobile) {
+            if (this.touchState.x !== 0) x = this.touchState.x;
+            if (this.touchState.y !== 0) y = this.touchState.y;
+            if (this.touchState.action1) action1 = true;
+            if (this.touchState.action2) action2 = true;
+
+            // Edge detection for touch "just pressed"
+            const a1Down = this.touchState.action1 && !this._prevTouch.action1;
+            const a2Down = this.touchState.action2 && !this._prevTouch.action2;
+            this._prevTouch.action1 = this.touchState.action1;
+            this._prevTouch.action2 = this.touchState.action2;
+            action1Down = action1Down || a1Down;
+            action2Down = action2Down || a2Down;
+        }
+
         return { x, y, action1, action1Down, action2, action2Down };
     }
 
@@ -183,5 +289,6 @@ export class InputManager {
         this.players = [];
         this.keyObjects = [];
         this.gamepads.clear();
+        this._destroyTouchControls();
     }
 }
