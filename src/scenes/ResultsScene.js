@@ -98,13 +98,19 @@ export class ResultsScene extends Phaser.Scene {
         if (isStoryMinigame) {
             this._selectedOption = 0; // 0 = retry, 1 = continue
 
+            const retryBg = this.add.rectangle(w / 2, h - 80, 280, 36, 0x000000, 0)
+                .setInteractive();
             const retryLabel = this.add.text(w / 2, h - 80, '> RETRY', {
                 fontSize: '18px', fill: '#ff6b9d', fontFamily: 'monospace', fontStyle: 'bold'
             }).setOrigin(0.5);
+            retryBg.on('pointerdown', () => { this.retry(); });
 
+            const continueBg = this.add.rectangle(w / 2, h - 50, 280, 36, 0x000000, 0)
+                .setInteractive();
             const continueLabel = this.add.text(w / 2, h - 50, '  CONTINUE STORY', {
                 fontSize: '18px', fill: '#888888', fontFamily: 'monospace'
             }).setOrigin(0.5);
+            continueBg.on('pointerdown', () => { this.continue(); });
 
             this._optionTexts = [retryLabel, continueLabel];
             this._updateOptionHighlight();
@@ -117,7 +123,7 @@ export class ResultsScene extends Phaser.Scene {
             this.input.keyboard.on('keydown-ENTER', () => this._confirmOption());
         } else {
             // Non-story: single continue prompt
-            const continueText = this.add.text(w / 2, h - 50, 'Press SPACE to continue', {
+            const continueText = this.add.text(w / 2, h - 50, 'Tap or press SPACE to continue', {
                 fontSize: '16px', fill: '#888888', fontFamily: 'monospace'
             }).setOrigin(0.5);
 
@@ -128,6 +134,9 @@ export class ResultsScene extends Phaser.Scene {
 
             this.input.keyboard.on('keydown-SPACE', () => this.continue());
             this.input.keyboard.on('keydown-ENTER', () => this.continue());
+
+            // Tap anywhere to continue
+            this.input.on('pointerdown', () => this.continue());
         }
 
         this.cameras.main.fadeIn(400);

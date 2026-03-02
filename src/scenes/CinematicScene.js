@@ -32,14 +32,21 @@ export class CinematicScene extends Phaser.Scene {
         this.sceneIndex = 0;
         this.playNextScene();
 
-        // Space/Enter/gamepad to advance
+        // Space/Enter/tap to advance
         this.input.keyboard.on('keydown-SPACE', () => this.engine.advance());
         this.input.keyboard.on('keydown-ENTER', () => this.engine.advance());
+        this.input.on('pointerdown', () => this.engine.advance());
 
-        // Skip hint
-        this.add.text(w - 10, 10, 'ESC to skip', {
-            fontSize: '10px', fill: '#444444', fontFamily: 'monospace'
-        }).setOrigin(1, 0);
+        // Skip button (tappable)
+        const skipBg = this.add.rectangle(w - 40, 18, 80, 28, 0x000000, 0.3)
+            .setInteractive().setDepth(100);
+        this.add.text(w - 40, 18, 'SKIP', {
+            fontSize: '12px', fill: '#666666', fontFamily: 'monospace'
+        }).setOrigin(0.5).setDepth(101);
+        skipBg.on('pointerdown', (pointer, x, y, event) => {
+            event.stopPropagation();
+            this.endCinematic();
+        });
 
         this.input.keyboard.on('keydown-ESC', () => this.endCinematic());
 

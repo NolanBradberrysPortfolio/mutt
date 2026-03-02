@@ -73,6 +73,15 @@ export class MenuScene extends Phaser.Scene {
                 fontSize: '22px', fill: '#ffffff', fontFamily: 'monospace'
             }).setOrigin(0.5);
 
+            // Make tappable
+            bg.setInteractive();
+            bg.on('pointerdown', () => {
+                this.selectedIndex = i;
+                this.updateSelector();
+                try { this.sound.play('sfx_confirm', { volume: 0.4 }); } catch(e) {}
+                item.action();
+            });
+
             this.menuItems.push({ bg, text, action: item.action });
         });
 

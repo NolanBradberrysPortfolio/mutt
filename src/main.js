@@ -27,6 +27,7 @@ const config = {
         }
     },
     input: {
+        touch: { capture: true },
         gamepad: true
     },
     scale: {

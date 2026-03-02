@@ -63,6 +63,14 @@ export class ArcadeSelectScene extends Phaser.Scene {
                 fontSize: '11px', fill: '#aaaaaa', fontFamily: 'monospace'
             });
 
+            // Make tappable
+            bg.setInteractive();
+            bg.on('pointerdown', () => {
+                this.selectedIndex = i;
+                this.updateSelector();
+                this.selectItem();
+            });
+
             this.menuItems.push({ bg, icon, title, desc, scene: game.scene });
         });
 
@@ -73,6 +81,8 @@ export class ArcadeSelectScene extends Phaser.Scene {
         const backTitle = this.add.text(w / 2, backY, '< Back to Menu', {
             fontSize: '18px', fill: '#888888', fontFamily: 'monospace'
         }).setOrigin(0.5);
+        backBg.setInteractive();
+        backBg.on('pointerdown', () => { this.goBack(); });
         this.menuItems.push({ bg: backBg, title: backTitle, scene: 'MenuScene', isBack: true });
 
         // Selector
