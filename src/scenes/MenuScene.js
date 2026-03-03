@@ -102,6 +102,34 @@ export class MenuScene extends Phaser.Scene {
             fontSize: '11px', fill: '#555577', fontFamily: 'monospace'
         }).setOrigin(0.5);
 
+        // Zoom controls (for mobile screen size adjustment)
+        this._zoom = parseFloat(localStorage.getItem('mutt_zoom') || '1');
+        this._applyZoom();
+
+        const zoomLabel = this.add.text(w - 16, h - 28, 'Zoom', {
+            fontSize: '9px', fill: '#555577', fontFamily: 'monospace'
+        }).setOrigin(0.5);
+
+        const zoomOut = this.add.text(w - 45, h - 12, '  -  ', {
+            fontSize: '16px', fill: '#aaaacc', fontFamily: 'monospace',
+            backgroundColor: '#222244', padding: { x: 2, y: 1 }
+        }).setOrigin(0.5).setInteractive();
+        zoomOut.on('pointerdown', () => {
+            this._zoom = Math.max(0.5, this._zoom - 0.1);
+            localStorage.setItem('mutt_zoom', this._zoom.toFixed(1));
+            this._applyZoom();
+        });
+
+        const zoomIn = this.add.text(w - 16, h - 12, '  +  ', {
+            fontSize: '16px', fill: '#aaaacc', fontFamily: 'monospace',
+            backgroundColor: '#222244', padding: { x: 2, y: 1 }
+        }).setOrigin(0.5).setInteractive();
+        zoomIn.on('pointerdown', () => {
+            this._zoom = Math.min(2.0, this._zoom + 0.1);
+            localStorage.setItem('mutt_zoom', this._zoom.toFixed(1));
+            this._applyZoom();
+        });
+
         // Input
         this.cursors = this.input.keyboard.addKeys({
             up: 'W', down: 'S', confirm: 'SPACE',
@@ -171,6 +199,14 @@ export class MenuScene extends Phaser.Scene {
                 m.text.setColor('#aaaacc');
             }
         });
+    }
+
+    _applyZoom() {
+        const canvas = document.querySelector('canvas');
+        if (canvas) {
+            canvas.style.transform = `scale(${this._zoom})`;
+            canvas.style.transformOrigin = 'center center';
+        }
     }
 
     startStoryMode() {

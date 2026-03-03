@@ -31,7 +31,7 @@ const config = {
         gamepad: true
     },
     scale: {
-        mode: Phaser.Scale.ENVELOP,
+        mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
     scene: [
@@ -48,6 +48,18 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
+
+// Apply saved zoom on startup
+const savedZoom = parseFloat(localStorage.getItem('mutt_zoom') || '1');
+if (savedZoom !== 1) {
+    game.events.once('ready', () => {
+        const canvas = document.querySelector('canvas');
+        if (canvas) {
+            canvas.style.transform = `scale(${savedZoom})`;
+            canvas.style.transformOrigin = 'center center';
+        }
+    });
+}
 
 // Store global game state
 game.registry.set('mode', 'story');       // 'story' or 'arcade'

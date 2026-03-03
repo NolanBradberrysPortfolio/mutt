@@ -31,10 +31,12 @@ export class CharacterSelectScene extends Phaser.Scene {
         // Dog characters with classes
         this.dogSprites = [];
         this.dogNameTexts = [];
-        const startX = 120;
-        const spacing = 140;
+        this.dogCount = DOG_CLASSES.length;
+        const dogCount = this.dogCount;
+        const spacing = Math.min(140, (w - 80) / dogCount);
+        const startX = (w - (dogCount - 1) * spacing) / 2;
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < dogCount; i++) {
             const x = startX + i * spacing;
             const y = 170;
             const cls = DOG_CLASSES[i];
@@ -158,12 +160,12 @@ export class CharacterSelectScene extends Phaser.Scene {
 
             // Navigate character selection
             if (input.x < 0 && !this['_prevX_' + i]) {
-                this.playerSelection[i] = (this.playerSelection[i] - 1 + 5) % 5;
+                this.playerSelection[i] = (this.playerSelection[i] - 1 + 5) % this.dogCount;
                 this.updateSlot(i);
                 try { this.sound.play('sfx_select', { volume: 0.2 }); } catch(e) {}
             }
             if (input.x > 0 && !this['_prevX_' + i]) {
-                this.playerSelection[i] = (this.playerSelection[i] + 1) % 5;
+                this.playerSelection[i] = (this.playerSelection[i] + 1) % this.dogCount;
                 this.updateSlot(i);
                 try { this.sound.play('sfx_select', { volume: 0.2 }); } catch(e) {}
             }

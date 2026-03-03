@@ -142,6 +142,93 @@ export class BootScene extends Phaser.Scene {
         g.fillRect(29, 6, 2, 3);
         g.generateTexture('dog_0', 34, 32);
 
+        // dog_5 = Houdini (Silver Poodle - Magician class)
+        // Detailed, cute silver poodle with puffy fur, top hat, and sparkly eyes
+        g.clear();
+        // Puffy body (silver/light gray fluffy poodle body)
+        g.fillStyle(0xd0d0d8);
+        g.fillRect(6, 14, 22, 12);       // main torso
+        g.fillStyle(0xe0e0e8);
+        g.fillRect(8, 13, 18, 4);        // lighter chest fluff
+        g.fillStyle(0xc0c0cc);
+        g.fillRect(7, 18, 20, 6);        // belly
+        // Fluffy pom-pom details on body
+        g.fillStyle(0xe8e8f0);
+        g.fillRect(8, 15, 4, 3);         // left chest poof
+        g.fillRect(22, 15, 4, 3);        // right chest poof
+        g.fillRect(12, 20, 10, 3);       // belly poof
+        // Head (round fluffy poodle head)
+        g.fillStyle(0xd8d8e0);
+        g.fillRect(9, 3, 16, 13);        // head base
+        g.fillStyle(0xe0e0ea);
+        g.fillRect(10, 4, 14, 10);       // inner head fluff
+        g.fillStyle(0xececf4);
+        g.fillRect(11, 5, 12, 6);        // forehead poof
+        // Puffy round ear poofs
+        g.fillStyle(0xd0d0d8);
+        g.fillRect(7, 4, 5, 7);          // left ear poof
+        g.fillRect(22, 4, 5, 7);         // right ear poof
+        g.fillStyle(0xe0e0ea);
+        g.fillRect(8, 5, 3, 5);          // left ear highlight
+        g.fillRect(23, 5, 3, 5);         // right ear highlight
+        g.fillStyle(0xc8b8d0);
+        g.fillRect(9, 6, 1, 3);          // left ear inner pink
+        g.fillRect(24, 6, 1, 3);         // right ear inner pink
+        // Big cute sparkly eyes
+        g.fillStyle(0x111111);
+        g.fillRect(13, 7, 3, 4);         // left eye
+        g.fillRect(19, 7, 3, 4);         // right eye
+        g.fillStyle(0x6644cc);
+        g.fillRect(13, 7, 2, 3);         // left iris (purple magic)
+        g.fillRect(19, 7, 2, 3);         // right iris
+        g.fillStyle(0x9966ff);
+        g.fillRect(13, 7, 1, 2);         // left iris bright
+        g.fillRect(19, 7, 1, 2);         // right iris bright
+        g.fillStyle(0xffffff);
+        g.fillRect(14, 7, 1, 1);         // left eye sparkle
+        g.fillRect(20, 7, 1, 1);         // right eye sparkle
+        // Cute little nose and mouth
+        g.fillStyle(0x444444);
+        g.fillRect(16, 11, 2, 2);        // nose
+        g.fillStyle(0x666666);
+        g.fillRect(16, 11, 1, 1);        // nose highlight
+        g.fillStyle(0x333333);
+        g.fillRect(16, 13, 3, 1);        // cute smile
+        g.fillRect(15, 12, 1, 1);        // smile corner left
+        // TOP HAT (magician!)
+        g.fillStyle(0x1a1a2e);
+        g.fillRect(11, 0, 12, 2);        // hat brim
+        g.fillRect(13, -4, 8, 6);        // hat top
+        g.fillStyle(0x2a2a3e);
+        g.fillRect(14, -3, 6, 4);        // hat front highlight
+        g.fillStyle(0xcc88ff);
+        g.fillRect(13, 0, 8, 1);         // purple hat band (magic!)
+        g.fillStyle(0xffdd44);
+        g.fillRect(16, -1, 2, 1);        // gold star on hat
+        // Poodle legs (puffy ankles)
+        g.fillStyle(0xc0c0cc);
+        g.fillRect(8, 24, 4, 4);         // front left leg
+        g.fillRect(22, 24, 4, 4);        // front right leg
+        g.fillStyle(0xe0e0ea);
+        g.fillRect(7, 26, 6, 3);         // left paw poof
+        g.fillRect(21, 26, 6, 3);        // right paw poof
+        g.fillStyle(0xf0f0f8);
+        g.fillRect(8, 27, 4, 2);         // left paw highlight
+        g.fillRect(22, 27, 4, 2);        // right paw highlight
+        // Puffy tail (pom-pom!)
+        g.fillStyle(0xd8d8e2);
+        g.fillRect(27, 10, 5, 5);        // tail pom base
+        g.fillStyle(0xe8e8f0);
+        g.fillRect(28, 11, 3, 3);        // tail pom highlight
+        // Magic sparkles floating around
+        g.fillStyle(0xcc88ff);
+        g.fillRect(4, 8, 1, 1);          // sparkle left
+        g.fillRect(30, 5, 1, 1);         // sparkle right
+        g.fillStyle(0xffdd44);
+        g.fillRect(6, 2, 1, 1);          // gold sparkle
+        g.fillRect(28, 14, 1, 1);        // gold sparkle
+        g.generateTexture('dog_5', 36, 32);
+
         // Player ships (for Galaga) - each dog character as a ship
         // ship_0 = Daisy (Yorkie) standing heroically
         g.clear();
@@ -302,6 +389,67 @@ export class BootScene extends Phaser.Scene {
         g.fillRect(22, 26, 4, 4);
         g.generateTexture('ship_4', 34, 36);
 
+        // ship_5 = Houdini (Silver Poodle Magician) on hoverboard
+        g.clear();
+        // Hoverboard (purple magic platform)
+        g.fillStyle(0x6644aa);
+        g.fillRect(2, 28, 30, 4);
+        g.fillStyle(0x8866cc);
+        g.fillRect(4, 29, 26, 2);
+        g.fillStyle(0xcc88ff, 0.6);
+        g.fillRect(8, 32, 4, 3);         // left thruster glow
+        g.fillRect(22, 32, 4, 3);        // right thruster glow
+        // Body (silver poodle fluff)
+        g.fillStyle(0xd0d0d8);
+        g.fillRect(8, 14, 18, 14);       // torso
+        g.fillStyle(0xe0e0ea);
+        g.fillRect(10, 15, 14, 4);       // chest highlight
+        g.fillStyle(0xe8e8f0);
+        g.fillRect(9, 18, 4, 3);         // left fluff
+        g.fillRect(21, 18, 4, 3);        // right fluff
+        // Head
+        g.fillStyle(0xd8d8e0);
+        g.fillRect(10, 4, 14, 12);       // head
+        g.fillStyle(0xe0e0ea);
+        g.fillRect(11, 5, 12, 8);        // inner fluff
+        g.fillStyle(0xececf4);
+        g.fillRect(12, 6, 10, 4);        // forehead poof
+        // Ear poofs
+        g.fillStyle(0xd0d0d8);
+        g.fillRect(8, 5, 4, 6);          // left
+        g.fillRect(22, 5, 4, 6);         // right
+        g.fillStyle(0xe0e0ea);
+        g.fillRect(9, 6, 2, 4);
+        g.fillRect(23, 6, 2, 4);
+        // Eyes (purple magic glow)
+        g.fillStyle(0x111111);
+        g.fillRect(13, 8, 3, 3);
+        g.fillRect(19, 8, 3, 3);
+        g.fillStyle(0x9966ff);
+        g.fillRect(13, 8, 2, 2);
+        g.fillRect(19, 8, 2, 2);
+        g.fillStyle(0xffffff);
+        g.fillRect(14, 8, 1, 1);
+        g.fillRect(20, 8, 1, 1);
+        // Nose + smile
+        g.fillStyle(0x444444);
+        g.fillRect(16, 12, 2, 2);
+        g.fillStyle(0x333333);
+        g.fillRect(16, 14, 3, 1);
+        // Top hat!
+        g.fillStyle(0x1a1a2e);
+        g.fillRect(11, 1, 12, 2);        // brim
+        g.fillRect(13, -3, 8, 6);        // top
+        g.fillStyle(0xcc88ff);
+        g.fillRect(13, 1, 8, 1);         // purple band
+        g.fillStyle(0xffdd44);
+        g.fillRect(16, 0, 2, 1);         // star
+        // Paws
+        g.fillStyle(0xe0e0ea);
+        g.fillRect(8, 26, 4, 4);
+        g.fillRect(22, 26, 4, 4);
+        g.generateTexture('ship_5', 34, 36);
+
         // Legacy player_ship (fallback)
         g.clear();
         g.fillStyle(0x4488ff);
@@ -414,6 +562,28 @@ export class BootScene extends Phaser.Scene {
         g.fillRect(1, 1, 2, 10);
         g.fillRect(7, 1, 2, 10);
         g.generateTexture('proj_lightning', 10, 12);
+
+        // MAGIC CARD projectile (Houdini - Magician class)
+        g.clear();
+        // Card body (white with purple back)
+        g.fillStyle(0xffffff);
+        g.fillRect(1, 0, 8, 12);         // card face
+        g.fillStyle(0x8855cc);
+        g.fillRect(1, 0, 2, 12);         // purple left edge (card back showing)
+        g.fillStyle(0xeeeeee);
+        g.fillRect(3, 1, 5, 10);         // inner card
+        // Card suit symbol (spade in center)
+        g.fillStyle(0x6633aa);
+        g.fillRect(5, 3, 2, 2);          // spade top
+        g.fillRect(4, 4, 4, 3);          // spade body
+        g.fillRect(5, 7, 2, 2);          // spade stem
+        // Magic sparkle trail
+        g.fillStyle(0xcc88ff, 0.8);
+        g.fillRect(3, 11, 1, 2);         // trail left
+        g.fillRect(6, 12, 1, 2);         // trail right
+        g.fillStyle(0xffdd44, 0.6);
+        g.fillRect(5, 11, 1, 1);         // gold sparkle
+        g.generateTexture('proj_magiccard', 10, 14);
 
         // Amazon worker enemy - blue uniform, cap, goofy face, holding box
         g.clear();
@@ -1522,9 +1692,24 @@ export class BootScene extends Phaser.Scene {
     }
 
     generateSFX() {
-        // Generate simple sound effects using Web Audio API
+        // Generate sound effects using Web Audio API
+        // On iOS, AudioContext starts suspended — we generate buffers now
+        // but also set up a listener to resume context on first touch
         const audioCtx = this.sound.context;
         if (!audioCtx) return;
+
+        // Resume suspended context on first user interaction (iOS fix)
+        if (audioCtx.state === 'suspended') {
+            const resume = () => {
+                audioCtx.resume();
+                document.removeEventListener('touchstart', resume);
+                document.removeEventListener('pointerdown', resume);
+                document.removeEventListener('click', resume);
+            };
+            document.addEventListener('touchstart', resume, { once: true });
+            document.addEventListener('pointerdown', resume, { once: true });
+            document.addEventListener('click', resume, { once: true });
+        }
 
         this.generateTone('sfx_shoot', audioCtx, 880, 0.08, 'square', 0.3);
         this.generateTone('sfx_hit', audioCtx, 220, 0.15, 'sawtooth', 0.3);
@@ -1542,39 +1727,42 @@ export class BootScene extends Phaser.Scene {
     }
 
     generateTone(key, audioCtx, freq, duration, type, volume, endFreq) {
-        const sampleRate = audioCtx.sampleRate;
-        const length = Math.floor(sampleRate * duration);
-        const buffer = audioCtx.createBuffer(1, length, sampleRate);
-        const data = buffer.getChannelData(0);
+        try {
+            const sampleRate = audioCtx.sampleRate;
+            const length = Math.floor(sampleRate * duration);
+            const buffer = audioCtx.createBuffer(1, length, sampleRate);
+            const data = buffer.getChannelData(0);
 
-        for (let i = 0; i < length; i++) {
-            const t = i / sampleRate;
-            const progress = i / length;
-            const currentFreq = endFreq ? freq + (endFreq - freq) * progress : freq;
-            const envelope = Math.max(0, 1 - progress * 1.5) * volume;
+            for (let i = 0; i < length; i++) {
+                const t = i / sampleRate;
+                const progress = i / length;
+                const currentFreq = endFreq ? freq + (endFreq - freq) * progress : freq;
+                const envelope = Math.max(0, 1 - progress * 1.5) * volume;
 
-            let sample;
-            const phase = (2 * Math.PI * currentFreq * t);
-            switch (type) {
-                case 'sine':
-                    sample = Math.sin(phase);
-                    break;
-                case 'square':
-                    sample = Math.sin(phase) > 0 ? 1 : -1;
-                    break;
-                case 'sawtooth':
-                    sample = 2 * ((currentFreq * t) % 1) - 1;
-                    break;
-                case 'triangle':
-                    sample = 4 * Math.abs(((currentFreq * t) % 1) - 0.5) - 1;
-                    break;
-                default:
-                    sample = Math.sin(phase);
+                let sample;
+                const phase = (2 * Math.PI * currentFreq * t);
+                switch (type) {
+                    case 'sine':
+                        sample = Math.sin(phase);
+                        break;
+                    case 'square':
+                        sample = Math.sin(phase) > 0 ? 1 : -1;
+                        break;
+                    case 'sawtooth':
+                        sample = 2 * ((currentFreq * t) % 1) - 1;
+                        break;
+                    case 'triangle':
+                        sample = 4 * Math.abs(((currentFreq * t) % 1) - 0.5) - 1;
+                        break;
+                    default:
+                        sample = Math.sin(phase);
+                }
+                data[i] = sample * envelope;
             }
-            data[i] = sample * envelope;
-        }
 
-        this.cache.audio.add(key, { data: buffer, sampleRate });
-        this.sound.decodeAudio(key, buffer);
+            this.sound.decodeAudio(key, buffer);
+        } catch(e) {
+            // Silently fail — sound is optional
+        }
     }
 }

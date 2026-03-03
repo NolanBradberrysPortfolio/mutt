@@ -55,5 +55,16 @@ export const DOG_CLASSES = [
         shootSound: 'sfx_shoot',
         shootRate: 1.2,
         color: '#ffee44'
+    },
+    {
+        id: 5,
+        name: 'Houdini',
+        className: 'Magician',
+        description: 'Flings magic cards!',
+        projectile: 'proj_magiccard',
+        projectileScale: 1.8,
+        shootSound: 'sfx_shoot',
+        shootRate: 1.0,
+        color: '#cc88ff'
     }
 ];
