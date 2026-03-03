@@ -91,70 +91,104 @@ export class InputManager {
         const cam = this.scene.cameras.main;
         const w = cam.width;
         const h = cam.height;
-        const btnSize = 44;
-        const gap = 6;
-
-        // D-pad positioning (bottom-left)
-        const dpadCenterX = w * 0.13;
-        const dpadCenterY = h * 0.78;
-
-        // Action button positioning (bottom-right)
-        const actionCenterX = w * 0.87;
-        const actionCenterY = h * 0.78;
-
-        const dpadDefs = [
-            { key: 'up',    label: '\u25B2', x: dpadCenterX, y: dpadCenterY - btnSize - gap },
-            { key: 'down',  label: '\u25BC', x: dpadCenterX, y: dpadCenterY + btnSize + gap },
-            { key: 'left',  label: '\u25C0', x: dpadCenterX - btnSize - gap, y: dpadCenterY },
-            { key: 'right', label: '\u25B6', x: dpadCenterX + btnSize + gap, y: dpadCenterY },
-        ];
-
-        const actionDefs = [
-            { key: 'action1', label: 'A', x: actionCenterX, y: actionCenterY + btnSize / 2 + gap / 2 },
-            { key: 'action2', label: 'B', x: actionCenterX, y: actionCenterY - btnSize / 2 - gap / 2 },
-        ];
-
-        const allDefs = [...dpadDefs, ...actionDefs];
-
-        for (const def of allDefs) {
-            // Circle background
-            const circle = this.scene.add.circle(def.x, def.y, btnSize / 2, 0x222222, 0.35)
-                .setScrollFactor(0)
-                .setDepth(9999)
-                .setStrokeStyle(2, 0xffffff, 0.5);
-
-            // Label text
-            const label = this.scene.add.text(def.x, def.y, def.label, {
-                fontSize: '18px',
-                fontFamily: 'monospace',
-                color: '#ffffff',
-                align: 'center'
-            })
-                .setOrigin(0.5)
-                .setScrollFactor(0)
-                .setDepth(10000)
-                .setAlpha(0.6);
-
-            // Make interactive
-            circle.setInteractive({ useHandCursor: false });
-
-            if (def.key === 'up' || def.key === 'down' || def.key === 'left' || def.key === 'right') {
-                const axis = (def.key === 'left' || def.key === 'right') ? 'x' : 'y';
-                const val = (def.key === 'right' || def.key === 'down') ? 1 : -1;
-                circle.on('pointerdown', () => { this.touchState[axis] = val; });
-                circle.on('pointerup', () => { if (this.touchState[axis] === val) this.touchState[axis] = 0; });
-                circle.on('pointerout', () => { if (this.touchState[axis] === val) this.touchState[axis] = 0; });
-            } else {
-                circle.on('pointerdown', () => { this.touchState[def.key] = true; });
-                circle.on('pointerup', () => { this.touchState[def.key] = false; });
-                circle.on('pointerout', () => { this.touchState[def.key] = false; });
-            }
-
-            this.touchButtons.push(circle, label);
-        }
 
         // Enable multi-touch
-        this.scene.input.addPointer(3); // support up to 4 simultaneous touches
+        this.scene.input.addPointer(3);
+
+        // --- Virtual Joystick (left side) ---
+        const joyBaseRadius = 60;
+        const joyThumbRadius = 30;
+        const deadzone = 14;
+        this.joystickPointerId = null;
+        this.joyOrigin = { x: 0, y: 0 };
+
+        // Joystick base + thumb (hidden until touch)
+        this.joyBase = this.scene.add.circle(0, 0, joyBaseRadius, 0xffffff, 0.15)
+            .setScrollFactor(0).setDepth(9999).setStrokeStyle(3, 0xffffff, 0.3).setVisible(false);
+        this.joyThumb = this.scene.add.circle(0, 0, joyThumbRadius, 0xffffff, 0.45)
+            .setScrollFactor(0).setDepth(10000).setVisible(false);
+        this.touchButtons.push(this.joyBase, this.joyThumb);
+
+        // Invisible touch zone covering left 40% of screen
+        const joyZone = this.scene.add.rectangle(w * 0.2, h * 0.5, w * 0.4, h, 0x000000, 0)
+            .setScrollFactor(0).setDepth(9998).setInteractive();
+        this.touchButtons.push(joyZone);
+
+        joyZone.on('pointerdown', (pointer) => {
+            if (this.joystickPointerId !== null) return;
+            this.joystickPointerId = pointer.id;
+            const lx = pointer.x / this.scene.scale.displayScale.x;
+            const ly = pointer.y / this.scene.scale.displayScale.y;
+            this.joyOrigin.x = lx;
+            this.joyOrigin.y = ly;
+            this.joyBase.setPosition(lx, ly).setVisible(true);
+            this.joyThumb.setPosition(lx, ly).setVisible(true);
+        });
+
+        this.scene.input.on('pointermove', (pointer) => {
+            if (pointer.id !== this.joystickPointerId) return;
+            const lx = pointer.x / this.scene.scale.displayScale.x;
+            const ly = pointer.y / this.scene.scale.displayScale.y;
+            const dx = lx - this.joyOrigin.x;
+            const dy = ly - this.joyOrigin.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            const clampDist = Math.min(dist, joyBaseRadius);
+            const angle = Math.atan2(dy, dx);
+            this.joyThumb.setPosition(
+                this.joyOrigin.x + Math.cos(angle) * clampDist,
+                this.joyOrigin.y + Math.sin(angle) * clampDist
+            );
+
+            if (dist < deadzone) {
+                this.touchState.x = 0;
+                this.touchState.y = 0;
+            } else {
+                this.touchState.x = Math.abs(dx) > deadzone ? (dx > 0 ? 1 : -1) : 0;
+                this.touchState.y = Math.abs(dy) > deadzone ? (dy > 0 ? 1 : -1) : 0;
+            }
+        });
+
+        const endJoystick = (pointer) => {
+            if (pointer.id !== this.joystickPointerId) return;
+            this.joystickPointerId = null;
+            this.touchState.x = 0;
+            this.touchState.y = 0;
+            this.joyBase.setVisible(false);
+            this.joyThumb.setVisible(false);
+        };
+        this.scene.input.on('pointerup', endJoystick);
+        this.scene.input.on('pointerupoutside', endJoystick);
+
+        // --- Action Buttons (right side, big) ---
+        const btnRadius = 38;
+        const btnAlpha = 0.4;
+
+        // A button (action1) — bottom-right
+        const btnAx = w - 80;
+        const btnAy = h - 90;
+        const btnA = this.scene.add.circle(btnAx, btnAy, btnRadius, 0x44aa44, btnAlpha)
+            .setScrollFactor(0).setDepth(9999).setStrokeStyle(3, 0xffffff, 0.5).setInteractive();
+        const lblA = this.scene.add.text(btnAx, btnAy, 'A', {
+            fontSize: '28px', fontFamily: 'monospace', color: '#ffffff', fontStyle: 'bold'
+        }).setOrigin(0.5).setScrollFactor(0).setDepth(10000).setAlpha(0.8);
+        btnA.on('pointerdown', () => { this.touchState.action1 = true; btnA.setAlpha(btnAlpha + 0.3); });
+        btnA.on('pointerup', () => { this.touchState.action1 = false; btnA.setAlpha(btnAlpha); });
+        btnA.on('pointerout', () => { this.touchState.action1 = false; btnA.setAlpha(btnAlpha); });
+        this.touchButtons.push(btnA, lblA);
+
+        // B button (action2) — above A
+        const btnBx = w - 140;
+        const btnBy = h - 150;
+        const btnB = this.scene.add.circle(btnBx, btnBy, btnRadius, 0x4444aa, btnAlpha)
+            .setScrollFactor(0).setDepth(9999).setStrokeStyle(3, 0xffffff, 0.5).setInteractive();
+        const lblB = this.scene.add.text(btnBx, btnBy, 'B', {
+            fontSize: '28px', fontFamily: 'monospace', color: '#ffffff', fontStyle: 'bold'
+        }).setOrigin(0.5).setScrollFactor(0).setDepth(10000).setAlpha(0.8);
+        btnB.on('pointerdown', () => { this.touchState.action2 = true; btnB.setAlpha(btnAlpha + 0.3); });
+        btnB.on('pointerup', () => { this.touchState.action2 = false; btnB.setAlpha(btnAlpha); });
+        btnB.on('pointerout', () => { this.touchState.action2 = false; btnB.setAlpha(btnAlpha); });
+        this.touchButtons.push(btnB, lblB);
     }
 
     _destroyTouchControls() {
