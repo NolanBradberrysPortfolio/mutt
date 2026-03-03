@@ -11,6 +11,10 @@ import { FlappyScene } from './scenes/minigames/FlappyScene.js';
 import { ResultsScene } from './scenes/ResultsScene.js';
 import { ArcadeSelectScene } from './scenes/ArcadeSelectScene.js';
 
+// Detect mobile and pick the best scale mode
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ||
+    (navigator.maxTouchPoints > 0 && window.innerWidth < 1024);
+
 const config = {
     type: Phaser.AUTO,
     width: 800,
@@ -31,7 +35,7 @@ const config = {
         gamepad: true
     },
     scale: {
-        mode: Phaser.Scale.FIT,
+        mode: isMobile ? Phaser.Scale.ENVELOP : Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
     scene: [
@@ -49,16 +53,18 @@ const config = {
 
 const game = new Phaser.Game(config);
 
-// Apply saved zoom on startup
-const savedZoom = parseFloat(localStorage.getItem('mutt_zoom') || '1');
-if (savedZoom !== 1) {
-    game.events.once('ready', () => {
-        const canvas = document.querySelector('canvas');
-        if (canvas) {
-            canvas.style.transform = `scale(${savedZoom})`;
-            canvas.style.transformOrigin = 'center center';
-        }
-    });
+// Apply saved zoom on startup (desktop only — mobile uses ENVELOP auto-scaling)
+if (!isMobile) {
+    const savedZoom = parseFloat(localStorage.getItem('mutt_zoom') || '1');
+    if (savedZoom !== 1) {
+        game.events.once('ready', () => {
+            const canvas = document.querySelector('canvas');
+            if (canvas) {
+                canvas.style.transform = `scale(${savedZoom})`;
+                canvas.style.transformOrigin = 'center center';
+            }
+        });
+    }
 }
 
 // Store global game state
@@ -67,3 +73,4 @@ game.registry.set('playerCount', 1);
 game.registry.set('characters', [0]);     // Selected character indices
 game.registry.set('scores', {});
 game.registry.set('currentChapter', 0);
+game.registry.set('isMobile', isMobile);

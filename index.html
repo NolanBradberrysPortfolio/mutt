@@ -21,9 +21,28 @@
             overflow: hidden;
         }
         canvas { image-rendering: pixelated; }
+
+        /* Landscape orientation hint for mobile */
+        #rotate-hint {
+            display: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #111; color: #ff6b9d; z-index: 9999;
+            flex-direction: column; justify-content: center; align-items: center;
+            font-family: monospace; text-align: center;
+        }
+        #rotate-hint .icon { font-size: 48px; margin-bottom: 16px; }
+        #rotate-hint .msg { font-size: 18px; }
+
+        @media (max-width: 1024px) and (orientation: portrait) {
+            #rotate-hint { display: flex; }
+        }
     </style>
 </head>
 <body>
+    <div id="rotate-hint">
+        <div class="icon">&#x1F4F1;&#x21BB;</div>
+        <div class="msg">Rotate your phone to landscape</div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
     <script type="module" src="src/main.js"></script>
 </body>
